@@ -1,0 +1,311 @@
+@startuml
+
+title __BOMBERMAN's Class Diagram__\n
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Bomb {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        class Bomber.Entity.Enemy.Balloon {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        class Bomber.Entity.Enemy.BlockHead {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        abstract class Bomber.Entity.Enemy.Enemy {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        class Bomber.Entity.Enemy.EnemyAI {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        class Bomber.Entity.Enemy.Needle {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      namespace Enemy {
+        class Bomber.Entity.Enemy.SkullHead {
+        }
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      abstract class Bomber.Entity.Entity {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.ExplosionBlast {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.GasolineBarrel {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Mine {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      abstract class Bomber.Entity.Pawn {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Player {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      enum facingDirection {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    class Bomber.Game {
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.InGameUI {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.Map {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.MapEditor {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.Sound {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.Texture {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace GameFunction {
+      class Bomber.GameFunction.TimeCounter {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Item {
+      abstract class Bomber.Item.Item {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Item {
+      class Bomber.Item.ItemAddBomb {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Item {
+      class Bomber.Item.ItemBombRange {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Item {
+      class Bomber.Item.ItemPlayerHealth {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Item {
+      class Bomber.Item.ItemPlayerSpeed {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    class Bomber.MainMenu {
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace StillObject {
+      class Bomber.StillObject.Gate {
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace StillObject {
+      class Bomber.StillObject.Tile {
+      }
+    }
+  }
+  
+
+  Bomber.Entity.Bomb -up-|> Bomber.Entity.Entity
+  Bomber.Entity.Bomb o-- Bomber.GameFunction.Map : map
+  Bomber.Entity.Bomb o-- Bomber.GameFunction.TimeCounter : timeCounter
+  Bomber.Entity.Enemy.Balloon -up-|> Bomber.Entity.Enemy.Enemy
+  Bomber.Entity.Enemy.BlockHead -up-|> Bomber.Entity.Enemy.Enemy
+  Bomber.Entity.Enemy.Enemy -up-|> Bomber.Entity.Pawn
+  Bomber.Entity.Enemy.Enemy o-- Bomber.Entity.Enemy.EnemyAI : enemyAI
+  Bomber.Entity.Enemy.Enemy o-- Bomber.GameFunction.TimeCounter : noiseIdleCounter
+  Bomber.Entity.Enemy.Enemy o-- Bomber.Entity.Player : player
+  Bomber.Entity.Enemy.EnemyAI o-- Bomber.Entity.Enemy.Enemy : enemy
+  Bomber.Entity.Enemy.EnemyAI o-- Bomber.Entity.Player : player
+  Bomber.Entity.Enemy.Needle -up-|> Bomber.Entity.Enemy.Enemy
+  Bomber.Entity.Enemy.SkullHead -up-|> Bomber.Entity.Enemy.Enemy
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : allTexture
+  Bomber.Entity.Entity o-- Bomber.Entity.facingDirection : directionFacing
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : eastTexture
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : northTexture
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : southTexture
+  Bomber.Entity.ExplosionBlast -up-|> Bomber.Entity.Entity
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.Map : mapRef
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.TimeCounter : delayCounter
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.TimeCounter : lingerDurationCounter
+  Bomber.Entity.GasolineBarrel -up-|> Bomber.Entity.Bomb
+  Bomber.Entity.Mine -up-|> Bomber.Entity.Bomb
+  Bomber.Entity.Pawn -up-|> Bomber.Entity.Entity
+  Bomber.Entity.Pawn o-- Bomber.GameFunction.Map : map
+  Bomber.Entity.Player -up-|> Bomber.Entity.Pawn
+  Bomber.Entity.Player o-- Bomber.GameFunction.TimeCounter : invulnerableCounter
+  Bomber.Game -up-|> javafx.scene.canvas.Canvas
+  Bomber.Game o-- Bomber.GameFunction.Map : map
+  Bomber.Game o-- Bomber.GameFunction.Texture : crackStage1
+  Bomber.Game o-- Bomber.GameFunction.Texture : crackStage2
+  Bomber.Game o-- Bomber.GameFunction.Texture : crackStage3
+  Bomber.Game o-- Bomber.MainMenu : mainMenu
+  Bomber.Game o-- Bomber.GameFunction.MapEditor : mapEditor
+  Bomber.Game o-- Bomber.Entity.Player : player
+  Bomber.Game o-- Bomber.GameFunction.InGameUI : userInterface
+  Bomber.GameFunction.InGameUI o-- Bomber.GameFunction.Texture : bar
+  Bomber.GameFunction.InGameUI o-- Bomber.Game : game
+  Bomber.GameFunction.InGameUI o-- Bomber.GameFunction.MapEditor : mapEditor
+  Bomber.GameFunction.InGameUI o-- Bomber.Entity.Player : player
+  Bomber.GameFunction.Map o-- Bomber.Game : game
+  Bomber.GameFunction.MapEditor o-- Bomber.GameFunction.TimeCounter : bombCounter
+  Bomber.GameFunction.MapEditor o-- Bomber.Game : game
+  Bomber.GameFunction.MapEditor o-- Bomber.GameFunction.Map : map
+  Bomber.GameFunction.MapEditor o-- Bomber.GameFunction.Texture : selectedTexture
+  Bomber.Item.Item -up-|> Bomber.StillObject.Tile
+  Bomber.Item.ItemAddBomb -up-|> Bomber.Item.Item
+  Bomber.Item.ItemBombRange -up-|> Bomber.Item.Item
+  Bomber.Item.ItemPlayerHealth -up-|> Bomber.Item.Item
+  Bomber.Item.ItemPlayerSpeed -up-|> Bomber.Item.Item
+  Bomber.MainMenu -up-|> javafx.application.Application
+  Bomber.MainMenu o-- Bomber.Game : game
+  Bomber.StillObject.Gate -up-|> Bomber.StillObject.Tile
+  Bomber.StillObject.Gate o-- Bomber.Game : game
+  Bomber.StillObject.Tile -up-|> Bomber.Entity.Entity
+  Bomber.StillObject.Tile o-- Bomber.StillObject.Tile : floorTile
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

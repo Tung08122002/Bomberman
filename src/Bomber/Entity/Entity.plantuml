@@ -1,0 +1,209 @@
+@startuml
+
+title __ENTITY's Class Diagram__\n
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Bomb {
+          + bombSound : String
+          + exploded : boolean
+          ~ fuseTime : double
+          ~ range : int
+          - penetration : int
+          + Bomb()
+          + changeStat()
+          + explode()
+          + update()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      abstract class Bomber.Entity.Entity {
+          + destroyOnDeath : boolean
+          # active : boolean
+          # canBePassed : boolean
+          # destructible : boolean
+          # health : int
+          # maxHealth : int
+          # toDelete : boolean
+          # x : double
+          # y : double
+          + Entity()
+          + Entity()
+          + Entity()
+          + Entity()
+          + deactivate()
+          + dealDamage()
+          + destroy()
+          + distanceTo()
+          {static} + distanceTo()
+          + getActive()
+          + getCanBePassed()
+          + getHealth()
+          + getX()
+          + getY()
+          + isCollidedWith()
+          + isDestructible()
+          + isToDelete()
+          + onTakeDamage()
+          + render()
+          + render()
+          + setActive()
+          + setCanBePassed()
+          + setDestructible()
+          + setDirectionFacing()
+          + setHealth()
+          + setToDelete()
+          + setXY()
+          + takeDamage()
+          {abstract} + update()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.ExplosionBlast {
+          + delayDuration : double
+          + delayOffset : double
+          + delaying : boolean
+          + lingerDuration : double
+          ~ penetration : int
+          ~ range : int
+          + ExplosionBlast()
+          + newFlameAt()
+          + traverse()
+          + update()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.GasolineBarrel {
+          + GasolineBarrel()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Mine {
+          ~ entityList : List<Entity>
+          + Mine()
+          + update()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      abstract class Bomber.Entity.Pawn {
+          # label : String
+          # mapInfo : int[][]
+          # mapUpdateCounter : int
+          # mapUpdateRate : int
+          # speed : double
+          # tempSpeedBoost : double
+          # toX : double
+          # toY : double
+          + Pawn()
+          + checkIfTileIsEmpty()
+          + getSpeed()
+          + getTempSpeedBoost()
+          + isMoving()
+          + move()
+          + moveDirection()
+          + setMap()
+          + setSpeed()
+          {abstract} + start()
+          + updateMapInfo()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      class Bomber.Entity.Player {
+          + bombCoolDown : int[]
+          + bombCoolDownCounter : TimeCounter[]
+          + bombRangeBonus : int
+          + invulnerableDuration : double
+          + moved : boolean
+          ~ input : ArrayList<String>
+          {static} - numberOfBombType : int
+          - selectedBomb : int
+          + Player()
+          + deactivate()
+          + destroy()
+          + getSelectedBomb()
+          + handleInput()
+          + healthUp()
+          + isLive()
+          + isThisBombReady()
+          + onTakeDamage()
+          + placeBomb()
+          + placeDynamite()
+          + placeGasolineBarrel()
+          + placeMine()
+          + setBombCoolDown()
+          + setBombRangeBonus()
+          + setInput()
+          + setXY()
+          + start()
+          + update()
+      }
+    }
+  }
+  
+
+  namespace Bomber {
+    namespace Entity {
+      enum facingDirection {
+        ALL
+        EAST
+        NORTH
+        SOUTH
+        STATIONARY
+        WEST
+      }
+    }
+  }
+  
+
+  Bomber.Entity.Bomb -up-|> Bomber.Entity.Entity
+  Bomber.Entity.Bomb o-- Bomber.GameFunction.Map : map
+  Bomber.Entity.Bomb o-- Bomber.GameFunction.TimeCounter : timeCounter
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : allTexture
+  Bomber.Entity.Entity o-- Bomber.Entity.facingDirection : directionFacing
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : eastTexture
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : northTexture
+  Bomber.Entity.Entity o-- Bomber.GameFunction.Texture : southTexture
+  Bomber.Entity.ExplosionBlast -up-|> Bomber.Entity.Entity
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.Map : mapRef
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.TimeCounter : delayCounter
+  Bomber.Entity.ExplosionBlast o-- Bomber.GameFunction.TimeCounter : lingerDurationCounter
+  Bomber.Entity.GasolineBarrel -up-|> Bomber.Entity.Bomb
+  Bomber.Entity.Mine -up-|> Bomber.Entity.Bomb
+  Bomber.Entity.Pawn -up-|> Bomber.Entity.Entity
+  Bomber.Entity.Pawn o-- Bomber.GameFunction.Map : map
+  Bomber.Entity.Player -up-|> Bomber.Entity.Pawn
+  Bomber.Entity.Player o-- Bomber.GameFunction.TimeCounter : invulnerableCounter
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
